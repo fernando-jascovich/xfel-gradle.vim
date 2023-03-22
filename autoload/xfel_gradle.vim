@@ -17,9 +17,10 @@ function! xfel_gradle#main (task)
 
   let &makeprg = 'cd ' . fnameescape(l:path) . ';'
   let &makeprg .='./gradlew --console=plain -w ' . a:task
-  let &errorformat='%t:\ %f:\ (%l\,\ %c):\ %m'     "kotlinc
-  let &errorformat.=',%A%f:%l:\ %m,%-Z%p^,%-C%.%#' "javac
-  let &errorformat.=',%-G%.%#'                     "ignore other lines
+  let &errorformat = '%t:\ %f:\ (%l\,\ %c):\ %m'     "kotlinc
+  let &errorformat .= ',%t:\ %f:%l:%c\ %m'     "kotlinc 1.8+
+  let &errorformat .= ',%A%f:%l:\ %m,%-Z%p^,%-C%.%#' "javac
+  let &errorformat .= ',%-G%.%#'                     "ignore other lines
   make
   "copen
 endfunction
